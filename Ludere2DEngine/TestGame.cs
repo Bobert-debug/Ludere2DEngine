@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using Ludere2DEngine.Ludere2DEngine;
-using System.Data;
 using System.Windows.Forms;
-using System.Threading;
 using Timer = System.Timers.Timer;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Ludere2DEngine
 {
@@ -42,16 +34,16 @@ namespace Ludere2DEngine
         ////////////////////
         string[,] Level =
         {
-            {"a", ".", ".", ".", ".", ".", ".", ".", "."},
-            {"a", ".", ".", ".", ".", ".", ".", ".", "w"},
-            {"a", ".", ".", ".", ".", ".", ".", ".", "w"},
-            {"a", ".", ".", ".", ".", ".", ".", ".", "w"},
-            {"a", ".", ".", ".", ".", ".", ".", ".", "w"},
-            {"g", "g", "g", "g", "g", "g", "g", "g", "g"},
-            {"d", "d", "d", "d", "d", "d", "d", "d", "d"},
+            {".", ".", ".", ".", ".", ".", ".", ".", ".", "."},
+            {"a", ".", ".", ".", ".", ".", ".", ".", ".", "w"},
+            {"a", ".", ".", ".", ".", ".", ".", ".", ".", "w"},
+            {"a", ".", ".", ".", ".", ".", ".", ".", ".", "w"},
+            {"a", ".", ".", ".", ".", ".", ".", ".", ".", "w"},
+            {"g", "g", "g", "g", "g", "g", "g", "g", "g", "g"},
+            {"d", "d", "d", "d", "d", "d", "d", "d", "d", "d"},
         };
 
-        public TestGame() : base(new Vector2(512, 512), "Ludere2D Demo") // Constructor that Sets a Game Resolution, Window Name
+        public TestGame() : base(new Vector2(582, 512), "Ludere2D Demo") // Constructor that Sets a Game Resolution, Window Name
         {
 
         }
@@ -98,7 +90,7 @@ namespace Ludere2DEngine
             // Setting Sprites
             player = new Sprite2D(new Vector2(256, 220), new Vector2(53, 64), "Player", "Player/playerIdle1"); // Player
             playerCollider = new Sprite2D(new Vector2(256 + 18, 220 + 54), new Vector2(15, 10), "PlayerCollider", "empty"); // Player Foot Collider
-            coin = new Sprite2D(new Vector2(150, 180), new Vector2(32, 32), "Coin", "Coin"); // Coin
+            coin = new Sprite2D(new Vector2(150, 210), new Vector2(32, 32), "Coin", "Coin"); // Coin
 
             // Player Foot Collider o
             playerCollider.position.X = player.position.X + 18; 
@@ -117,22 +109,36 @@ namespace Ludere2DEngine
 
         }
 
+        public float score;
+
         public override void onUpdate() // Executed every frame
         {
+            if(player.scale.X > 0)
+            {
+                player.collider.X = (int)player.position.X;
+                player.collider.Y = (int)player.position.Y;
+            }
+            else
+            {
+                player.collider.X = (int)player.position.X + (int)player.scale.X;
+                player.collider.Y = (int)player.position.Y;
+            }
+
+
             ///////////////////
             //Player Movement//
             /////////////////// 
             if (right && !blockRight)
             {
                 player.flipX(false);
-                player.position.X += 0.25f;
+                player.position.X += 1f;
                 idleAnim.Stop();
                 moveAnim.Start();
             }
             else if (left && !blockLeft)
             {
                 player.flipX(true);
-                player.position.X -= 0.25f;
+                player.position.X -= 1f;
                 idleAnim.Stop();
                 moveAnim.Start();
             }
@@ -155,7 +161,7 @@ namespace Ludere2DEngine
 
             if (jump)
             {
-                y = -0.6f;
+                y = -3f;
                 timerJump.Start();
 
             }
@@ -164,11 +170,21 @@ namespace Ludere2DEngine
             //Collisions//
             //////////////
 
-            if (player.IsCollidingTag("Coin") || player.IsColliding(player, coin))
+            if (player.collider.IntersectsWith(coin.collider))
             {
+                score++;
                 float position = rnd.Next(64, 400);
-                coin.position.X = position;
+                coin.DestroySelf();
+                coin = new Sprite2D(new Vector2(rnd.Next(64, 400), 210), new Vector2(32, 32), "Coin" + score, "Coin");
             }
+
+            /*if (player.IsColliding(player, coin))
+            {
+                score++;
+                float position = rnd.Next(64, 400);
+                coin.DestroySelf();
+                coin = new Sprite2D(new Vector2(rnd.Next(64, 400), 210), new Vector2(32, 32), "Coin" + score, "Coin");
+            }*/
 
             if (playerCollider.IsCollidingTag("Grass") && !jump)
             {
@@ -177,7 +193,7 @@ namespace Ludere2DEngine
             }
             else if(!jump)
             {
-                y = 0.4f;
+                y = 1.5f;
                 canJump = false;
             }
 
