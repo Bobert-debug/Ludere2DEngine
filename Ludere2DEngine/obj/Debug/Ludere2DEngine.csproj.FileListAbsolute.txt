@@ -25,3 +25,12 @@ D:\Projects\Ludere2DEngine\obj\Debug\Ludere2DEngine.csproj.GenerateResource.cach
 D:\Projects\Ludere2DEngine\obj\Debug\Ludere2DEngine.csproj.CoreCompileInputs.cache
 D:\Projects\Ludere2DEngine\obj\Debug\Ludere2DEngine.exe
 D:\Projects\Ludere2DEngine\obj\Debug\Ludere2DEngine.pdb
+D:\Projects\Ludere2D\Ludere2DEngine\bin\Debug\Ludere2DEngine.exe.config
+D:\Projects\Ludere2D\Ludere2DEngine\bin\Debug\Ludere2DEngine.exe
+D:\Projects\Ludere2D\Ludere2DEngine\bin\Debug\Ludere2DEngine.pdb
+D:\Projects\Ludere2D\Ludere2DEngine\obj\Debug\Ludere2DEngine.csprojAssemblyReference.cache
+D:\Projects\Ludere2D\Ludere2DEngine\obj\Debug\Ludere2DEngine.Ludere2DEngine.Canvas.resources
+D:\Projects\Ludere2D\Ludere2DEngine\obj\Debug\Ludere2DEngine.csproj.GenerateResource.cache
+D:\Projects\Ludere2D\Ludere2DEngine\obj\Debug\Ludere2DEngine.csproj.CoreCompileInputs.cache
+D:\Projects\Ludere2D\Ludere2DEngine\obj\Debug\Ludere2DEngine.exe
+D:\Projects\Ludere2D\Ludere2DEngine\obj\Debug\Ludere2DEngine.pdb
